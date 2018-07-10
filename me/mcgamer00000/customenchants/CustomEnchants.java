@@ -2,6 +2,10 @@ package me.mcgamer00000.customenchants;
 
 import java.util.Arrays;
 
+import me.mcgamer00000.customenchants.enchants.ExplosionEnchant;
+import me.mcgamer00000.customenchants.listeners.BlockBreakListener;
+import me.mcgamer00000.customenchants.utils.EnchantManager;
+
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -12,17 +16,16 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import me.mcgamer00000.customenchants.listeners.BlockBreakListener;
-import me.mcgamer00000.customenchants.utils.EnchantManager;
-
 public class CustomEnchants extends JavaPlugin {
 
 	private static CustomEnchants inst;
 	private EnchantManager enchantManager;
 	
+	@Override
 	public void onEnable() {
 		inst = this;
 		enchantManager = new EnchantManager();
+		this.enchantManager.registerEnchant("Explosion", new ExplosionEnchant());
 		Bukkit.getPluginManager().registerEvents(new BlockBreakListener(), this);
 	}
 	
