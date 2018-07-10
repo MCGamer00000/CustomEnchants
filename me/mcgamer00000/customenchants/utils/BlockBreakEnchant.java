@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.bukkit.event.block.BlockBreakEvent;
 
-public abstract class BlockBreakEnchant {
+public interface BlockBreakEnchant {
 	
-	public abstract void run(BlockBreakEvent e, List<Enchant> enchants, int lvl);
+	public void run(BlockBreakEvent e, List<Enchant> enchants, int lvl);
 	
 }

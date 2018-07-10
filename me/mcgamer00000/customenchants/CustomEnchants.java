@@ -7,7 +7,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -26,21 +25,11 @@ public class CustomEnchants extends JavaPlugin {
 		enchantManager = new EnchantManager();
 		Bukkit.getPluginManager().registerEvents(new BlockBreakListener(), this);
 	}
-
 	
 	// This is just a debug command for creating an enchanted item.
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if(args.length < 2) {
-			if(args.length >= 1) {
-				if(!(sender instanceof Player)) {
-					sender.sendMessage("You aren't a player!");
-					return true;
-				}
-				Player p = (Player) sender;
-				ItemStack item = p.getInventory().getItemInMainHand();
-				item.addUnsafeEnchantment(Enchantment.LUCK, 0);
-			}
 			sender.sendMessage("Usage: /createitem <material> <lore>");
 			return true;
 		}
@@ -48,17 +37,16 @@ public class CustomEnchants extends JavaPlugin {
 			sender.sendMessage("You aren't a player!");
 			return true;
 		}
-		Material mat = null;
-		try {
-			mat = Material.getMaterial(args[0].toUpperCase());
-		} catch(Exception e) {
+		Material mat = Material.getMaterial(args[0].toUpperCase());
+		if(mat == null) {
 			sender.sendMessage("Invalid material " + args[0]);
 			return true;
 		}
-		String lore = "";
+		StringBuilder loreBuilder = new StringBuilder();
 		for(int i = 1; i < args.length; i++ ) {
-			lore += args[i] + " ";
+			loreBuilder.append(args[i]+" ");
 		}
+		String lore = loreBuilder.toString();
 		lore = lore.substring(0, lore.length()-1);
 		lore = lore.replace("&", ""+ChatColor.COLOR_CHAR);
 		ItemStack item = new ItemStack(mat);
@@ -78,10 +66,4 @@ public class CustomEnchants extends JavaPlugin {
 		return enchantManager;
 	}
 
-	public void setEnchantManager(EnchantManager enchantManager) {
-		this.enchantManager = enchantManager;
-	}
-
-	
-	
 }

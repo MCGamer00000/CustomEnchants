@@ -11,11 +11,12 @@ import org.bukkit.util.Vector;
 import me.mcgamer00000.customenchants.utils.BlockBreakEnchant;
 import me.mcgamer00000.customenchants.utils.Enchant;
 
-public class ExplosionEnchant extends BlockBreakEnchant {
+public class ExplosionEnchant implements BlockBreakEnchant {
+	
+	private final Random ran = new Random();
 	
 	@Override
 	public void run(BlockBreakEvent e, List<Enchant> enchants, int level) {
-		Random ran = new Random();
 		for(int i = 0; i < level*2; i++) {
 			Location l = new Location(null, 0, 0, 0, map(ran.nextFloat(), 1), map(ran.nextFloat(), 1));
 			double max = ran.nextDouble()*Math.sqrt(level/2);

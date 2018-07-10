@@ -21,6 +21,7 @@ public class BlockBreakListener implements Listener {
 		ItemStack item = e.getPlayer().getInventory().getItemInMainHand();
 
 		List<Enchant> enchants = CustomEnchants.getInst().getEnchantManager().getEnchants(item.getItemMeta().getLore());
+		if(enchants.isEmpty()) return;
 		Map<String,BlockBreakEnchant> blockBreakEnchants = CustomEnchants.getInst().getEnchantManager().getBlockBreakEnchants();
 		for(String s: blockBreakEnchants.keySet()) {
 			for(Enchant enchant: enchants) {

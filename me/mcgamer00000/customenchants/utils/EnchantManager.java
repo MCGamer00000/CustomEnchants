@@ -14,27 +14,18 @@ public class EnchantManager {
 	Map<String, BlockBreakEnchant> blockBreakEnchants = new HashMap<String,BlockBreakEnchant>();
 	
 	public EnchantManager() {
-		blockBreakEnchants.put("explosion", new ExplosionEnchant());
+		blockBreakEnchants.put("Explosion", new ExplosionEnchant());
 	}
 	
 	public List<Enchant> getEnchants(List<String> lore) {
-		if(lore == null) return new ArrayList<Enchant>();
 		List<Enchant> enchants = new ArrayList<>();
+		if(lore == null) return enchants;
 		for(String s: lore) {
 			String enchant = stripColor(s);
-			String name = "";
-			String lvl = "";
-			String alpha = "abcdefghijklmnopqrstuvwxyz";
-			String numbers = "1234567890";
-			for(char c: enchant.toCharArray()) {
-				if(alpha.contains(c+"")&&lvl.equals(""))
-					name += c;
-				else if(!name.equals("")&&numbers.contains(c+""))
-					lvl += c;
-				else {
-					break;
-				}
-			}
+			String[] enchantArray = enchant.split(" ");
+			if(enchantArray.length < 2) continue;
+			String lvl = enchantArray[enchantArray.length-1];
+			String name = enchant.replace(" " + lvl, "");
 			if(name.equals("")||lvl.equals("")) continue;
 			try {
 				enchants.add(new Enchant(name, Integer.valueOf(lvl)));
@@ -46,11 +37,14 @@ public class EnchantManager {
 	}
 	
 	public String stripColor(String s) {
-		return s.replace(ChatColor.COLOR_CHAR+"", "");
+		/**String s2 = s;
+		while(s2.contains(ChatColor.COLOR_CHAR+""))
+			s2 = s2.replace(ChatColor.COLOR_CHAR+""+s.charAt(s.indexOf(ChatColor.COLOR_CHAR)+1), "");**/
+		return ChatColor.stripColor(s);
 	}
 
 	public Map<String,BlockBreakEnchant> getBlockBreakEnchants() {
-		return blockBreakEnchants;
+		return new HashMap<String,BlockBreakEnchant>(blockBreakEnchants);
 	}
 	
 }
