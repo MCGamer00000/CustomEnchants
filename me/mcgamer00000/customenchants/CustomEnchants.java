@@ -2,10 +2,6 @@ package me.mcgamer00000.customenchants;
 
 import java.util.Arrays;
 
-import me.mcgamer00000.customenchants.enchants.ExplosionEnchant;
-import me.mcgamer00000.customenchants.listeners.BlockBreakListener;
-import me.mcgamer00000.customenchants.utils.EnchantManager;
-
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
@@ -16,6 +12,12 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import me.mcgamer00000.customenchants.enchants.ExplosionEnchant;
+import me.mcgamer00000.customenchants.enchants.PoisonEnchant;
+import me.mcgamer00000.customenchants.listeners.BlockBreakListener;
+import me.mcgamer00000.customenchants.listeners.PlayerAttackListener;
+import me.mcgamer00000.customenchants.utils.EnchantManager;
+
 public class CustomEnchants extends JavaPlugin {
 
 	private static CustomEnchants inst;
@@ -25,8 +27,10 @@ public class CustomEnchants extends JavaPlugin {
 	public void onEnable() {
 		inst = this;
 		enchantManager = new EnchantManager();
-		this.enchantManager.registerEnchant("Explosion", new ExplosionEnchant());
+		this.enchantManager.registerBlockBreakEnchant("Explosion", new ExplosionEnchant());
+		this.enchantManager.registerPlayerAttackEnchant("Poison", new PoisonEnchant());
 		Bukkit.getPluginManager().registerEvents(new BlockBreakListener(), this);
+		Bukkit.getPluginManager().registerEvents(new PlayerAttackListener(), this);
 	}
 	
 	// This is just a debug command for creating an enchanted item.

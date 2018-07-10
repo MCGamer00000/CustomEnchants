@@ -11,6 +11,7 @@ import org.bukkit.ChatColor;
 public class EnchantManager {
 
 	private final Map<String, BlockBreakEnchant> blockBreakEnchants = new HashMap<>();
+	private final Map<String, PlayerAttackEnchant> playerAttackEnchants = new HashMap<>();
 	
 	public List<Enchant> getEnchants(List<String> lore) {
 		List<Enchant> enchants = new ArrayList<>();
@@ -23,7 +24,6 @@ public class EnchantManager {
 			if(enchantArray.length < 2) continue;
 			int lvl = NumberUtils.toInt(enchantArray[enchantArray.length - 1], -1);
 			String name = enchant.replace(" " + lvl, "");
-
 			if(name.trim().isEmpty() || lvl == -1) continue;
 			enchants.add(new Enchant(name, lvl));
 		}
@@ -31,18 +31,23 @@ public class EnchantManager {
 		return enchants;
 	}
 
-	public void registerEnchant(String name, BlockBreakEnchant enchant) {
+	public void registerBlockBreakEnchant(String name, BlockBreakEnchant enchant) {
 		this.blockBreakEnchants.put(name, enchant);
+	}
+
+	public void registerPlayerAttackEnchant(String name, PlayerAttackEnchant enchant) {
+		this.playerAttackEnchants.put(name, enchant);
 	}
 
 	public Map<String, BlockBreakEnchant> getBlockBreakEnchants() {
 		return new HashMap<>(blockBreakEnchants);
 	}
+
+	public Map<String, PlayerAttackEnchant> getPlayerAttackEnchants() {
+		return new HashMap<>(playerAttackEnchants);
+	}
 	
 	private String stripColor(String s) {
-		/**String s2 = s;
-		while(s2.contains(ChatColor.COLOR_CHAR+""))
-			s2 = s2.replace(ChatColor.COLOR_CHAR+""+s.charAt(s.indexOf(ChatColor.COLOR_CHAR)+1), "");**/
 		return ChatColor.stripColor(s);
 	}
 	
