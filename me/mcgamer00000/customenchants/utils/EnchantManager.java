@@ -11,7 +11,7 @@ import me.mcgamer00000.customenchants.enchants.ExplosionEnchant;
 
 public class EnchantManager {
 
-	Map<String, BlockBreakEnchant> blockBreakEnchants = new HashMap<String,BlockBreakEnchant>();
+	private final Map<String, BlockBreakEnchant> blockBreakEnchants = new HashMap<String,BlockBreakEnchant>();
 	
 	public EnchantManager() {
 		blockBreakEnchants.put("Explosion", new ExplosionEnchant());
