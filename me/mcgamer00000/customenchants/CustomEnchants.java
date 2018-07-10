@@ -27,6 +27,8 @@ public class CustomEnchants extends JavaPlugin {
 		Bukkit.getPluginManager().registerEvents(new BlockBreakListener(), this);
 	}
 
+	
+	// This is just a debug command for creating an enchanted item.
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if(args.length < 2) {
