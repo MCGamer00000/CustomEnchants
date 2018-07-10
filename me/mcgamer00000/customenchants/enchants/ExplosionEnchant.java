@@ -13,7 +13,6 @@ import me.mcgamer00000.customenchants.utils.Enchant;
 
 public class ExplosionEnchant extends BlockBreakEnchant {
 	
-	@SuppressWarnings("deprecation")
 	@Override
 	public void run(BlockBreakEvent e, List<Enchant> enchants, int level) {
 		Random ran = new Random();
@@ -24,7 +23,7 @@ public class ExplosionEnchant extends BlockBreakEnchant {
 				Vector v = l.getDirection().multiply(i2);
 				Location l2 = e.getBlock().getLocation().clone().add(0.5, 0.5, 0.5).add(v);
 				if(l2.getBlock().getType() != Material.AIR && l2.getBlock().getType() != Material.BEDROCK) 
-					l2.getBlock().breakNaturally(e.getPlayer().getItemInHand());
+					l2.getBlock().breakNaturally(e.getPlayer().getInventory().getItemInMainHand());
 			}
 		}
 	}

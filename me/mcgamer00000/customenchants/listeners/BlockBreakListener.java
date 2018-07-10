@@ -14,12 +14,11 @@ import me.mcgamer00000.customenchants.utils.Enchant;
 
 public class BlockBreakListener implements Listener {
 
-	@SuppressWarnings("deprecation")
 	@EventHandler
 	public void onBlockBreak(BlockBreakEvent e) {
-		if(e.getPlayer().getMainHand() == null)
+		if(e.getPlayer().getInventory().getItemInMainHand() == null)
 			return;
-		ItemStack item = e.getPlayer().getItemInHand();
+		ItemStack item = e.getPlayer().getInventory().getItemInMainHand();
 
 		List<Enchant> enchants = CustomEnchants.getInst().getEnchantManager().getEnchants(item.getItemMeta().getLore());
 		Map<String,BlockBreakEnchant> blockBreakEnchants = CustomEnchants.getInst().getEnchantManager().getBlockBreakEnchants();
