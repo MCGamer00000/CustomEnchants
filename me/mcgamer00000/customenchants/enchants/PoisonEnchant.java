@@ -18,7 +18,7 @@ public class PoisonEnchant implements PlayerAttackEnchant {
 	@Override
 	public void run(EntityDamageByEntityEvent e, List<Enchant> enchants, int lvl) {
 		if(!(e.getEntity() instanceof LivingEntity)) return;
-		if(RAN.nextInt(1000)>50) return;
+		if(RAN.nextInt(10)>1) return;
 		LivingEntity entity = (LivingEntity) e.getEntity();
 		entity.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 4*20, lvl));
 	}
